@@ -163,7 +163,9 @@
     "lbPoolID0": "[concat(variables('lbID0'),'/backendAddressPools/LoadBalancerBEAddressPool')]",
     "lbProbeID0": "[concat(variables('lbID0'),'/probes/FabricGatewayProbe')]",
     "lbHttpProbeID0": "[concat(variables('lbID0'),'/probes/FabricHttpGatewayProbe')]",
-    "lbNatPoolID0": "[concat(variables('lbID0'),'/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+    "lbNatPoolID0": "[concat(variables('lbID0'),'/inboundNatPools/LoadBalancerBEAddressNatPool')]",
+
+    "counterProcessName1": "VotingData"
   },
   "resources": [
     {
@@ -524,7 +526,37 @@
                           "scheduledTransferPeriod": "PT1M",
                           "PerformanceCounterConfiguration": [
                             {
-                              "counterSpecifier": "\\Process(TestApp)\\% Processor Time",
+                              "counterSpecifier": "\\Process([variables('counterProcessName1')])\\% Processor Time",
+                              "sampleRate": "PT1M",
+                              "unit": "Percent",
+                              "sinks": "applicationInsights"
+                            },
+                            {
+                              "counterSpecifier": "\\.NET CLR Memory([variables('counterProcessName1')])\\% Time in GC",
+                              "sampleRate": "PT1M",
+                              "unit": "Percent",
+                              "sinks": "applicationInsights"
+                            },
+                            {
+                              "counterSpecifier": "\\.NET CLR Memory([variables('counterProcessName1')])\\Gen 0 heap size",
+                              "sampleRate": "PT1M",
+                              "unit": "Percent",
+                              "sinks": "applicationInsights"
+                            },
+                            {
+                              "counterSpecifier": "\\.NET CLR Memory([variables('counterProcessName1')])\\Gen 1 heap size",
+                              "sampleRate": "PT1M",
+                              "unit": "Percent",
+                              "sinks": "applicationInsights"
+                            },
+                            {
+                              "counterSpecifier": "\\.NET CLR Memory([variables('counterProcessName1')])\\Gen 2 heap size",
+                              "sampleRate": "PT1M",
+                              "unit": "Percent",
+                              "sinks": "applicationInsights"
+                            },
+                            {
+                              "counterSpecifier": "\\.NET CLR Memory([variables('counterProcessName1')])\\Large Object Heap size",
                               "sampleRate": "PT1M",
                               "unit": "Percent",
                               "sinks": "applicationInsights"
@@ -545,24 +577,6 @@
                               "counterSpecifier": "\\LogicalDisk(_Total)\\Disk Writes/sec",
                               "sampleRate": "PT1M",
                               "unit": "KB",
-                              "sinks": "applicationInsights"
-                            },
-                            {
-                              "counterSpecifier": "\\LogicalDisk(_Total)\\Avg. Disk Read Queue Length",
-                              "sampleRate": "PT1M",
-                              "unit": "KB",
-                              "sinks": "applicationInsights"
-                            },
-                            {
-                              "counterSpecifier": "\\LogicalDisk(_Total)\\Avg. Disk Write Queue Length",
-                              "sampleRate": "PT1M",
-                              "unit": "KB",
-                              "sinks": "applicationInsights"
-                            },
-                            {
-                              "counterSpecifier": "\\.NET CLR Memory(TestApp)\\% Time in GC",
-                              "sampleRate": "PT1M",
-                              "unit": "Percent",
                               "sinks": "applicationInsights"
                             }
                           ]
