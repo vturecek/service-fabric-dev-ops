@@ -14,8 +14,6 @@ namespace VotingData
     using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
     using Microsoft.ServiceFabric.Services.Communication.Runtime;
     using Microsoft.ServiceFabric.Services.Runtime;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.ServiceFabric;
 
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
@@ -48,8 +46,7 @@ namespace VotingData
                                      .ConfigureServices(
                                          services => services
                                              .AddSingleton<StatefulServiceContext>(serviceContext)
-                                             .AddSingleton<IReliableStateManager>(this.StateManager)
-                                             .AddSingleton<ITelemetryInitializer>((serviceProvider) => FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(serviceContext)))
+                                             .AddSingleton<IReliableStateManager>(this.StateManager))
                                      .UseContentRoot(Directory.GetCurrentDirectory())
                                      .UseStartup<Startup>()
                                      .UseApplicationInsights()

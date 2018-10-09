@@ -15,8 +15,6 @@ namespace VotingWeb
     using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
     using Microsoft.ServiceFabric.Services.Communication.Runtime;
     using Microsoft.ServiceFabric.Services.Runtime;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.ServiceFabric;
 
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
@@ -51,8 +49,7 @@ namespace VotingWeb
                                          services => services
                                              .AddSingleton<HttpClient>(new HttpClient())
                                              .AddSingleton<FabricClient>(new FabricClient())
-                                             .AddSingleton<StatelessServiceContext>(serviceContext)
-                                             .AddSingleton<ITelemetryInitializer>((serviceProvider) => FabricTelemetryInitializerExtension.CreateFabricTelemetryInitializer(serviceContext)))
+                                             .AddSingleton<StatelessServiceContext>(serviceContext))
                                      .UseContentRoot(Directory.GetCurrentDirectory())
                                      .UseStartup<Startup>()
                                      .UseApplicationInsights()
